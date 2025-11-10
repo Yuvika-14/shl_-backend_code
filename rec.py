@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sentence_transformers import SentenceTransformer, util
 
 # -------- Load catalog CSV --------
@@ -22,9 +23,8 @@ def get_model():
     return _model
 
 model = get_model()
-df["emb"] = df["description"].astype(str).apply(lambda x: model.encode(x))
-
-# -------- Test Type Classifier --------
+#---- Test Type Classifier --------
+emb_matrix = np.load("embeddings.npy")
 def infer_test_type(text: str):
     text = text.lower()
     types = []
@@ -76,7 +76,7 @@ def extract_skills(text: str):
 # -------- RECOMMENDER FUNCTION --------
 def recommend(query: str, top_k: int = 7):
     q_emb = model.encode(query)
-    scores = util.cos_sim(q_emb, list(df["emb"])).squeeze()
+    scores = util.cos_sim(q_emb, emb_matrix).squeeze()
     top_idx = scores.topk(top_k).indices.tolist()
 
     results = []

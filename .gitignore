@@ -31,9 +31,6 @@ cache/
 # ----------------------------
 # Dataset files (DO NOT upload)
 # ----------------------------
-Gen_AI Dataset*.xlsx
-
-catalog_enriched_1.csv
 # ----------------------------
 # Logs
 # ----------------------------
