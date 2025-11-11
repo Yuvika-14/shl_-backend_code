@@ -28,6 +28,3 @@ def recommend_api(q: Query):
     results = recommend(q.query, q.top_k)
     print("Returned results from recommend():", results)
     return {"assessments": results}
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))  # use Render's port
-    uvicorn.run(app, host="0.0.0.0", port=port)
